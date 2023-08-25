@@ -32,9 +32,9 @@ particionar <- function(data, division, agrupa = "", campo = "fold", start = 1, 
 }
 #------------------------------------------------------------------------------
 
-ArbolEstimarGanancia <- function(semilla, param_basicos) {
+ArbolEstimarGanancia <- function(semillas, param_basicos) {
   # particiono estratificadamente el dataset
-  particionar(dataset, division = c(7, 3), agrupa = "clase_ternaria", seed = semilla)
+  particionar(dataset, division = c(7, 3), agrupa = "clase_ternaria", seed = semillas)
 
   # genero el modelo
   # quiero predecir clase_ternaria a partir del resto
@@ -75,7 +75,7 @@ ArbolesMontecarlo <- function(semillas, param_basicos) {
   # la funcion mcmapply  llama a la funcion ArbolEstimarGanancia
   #  tantas veces como valores tenga el vector  ksemillas
   ganancias <- mcmapply(ArbolEstimarGanancia,
-    semillas, # paso el vector de semillas
+    PARAM$semillas, # paso el vector de semillas
     MoreArgs = list(param_basicos), # aqui paso el segundo parametro
     SIMPLIFY = FALSE,
     mc.cores = 1
@@ -134,7 +134,7 @@ for (vmax_depth in c(3, 4, 5, 6, 8, 9)) {
     ) # profundidad máxima del arbol
 
 # Un solo llamado, con la semilla 17
-    ganancia_promedio <- ArbolesMontecarlo(ksemillas, param_basicos)
+    ganancia_promedio <- ArbolesMontecarlo(17, param_basicos)
 
     # escribo los resultados al archivo de salida
     cat(

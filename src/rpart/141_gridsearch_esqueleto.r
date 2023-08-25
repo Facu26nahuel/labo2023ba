@@ -115,16 +115,16 @@ cat(
   "cp","\t",
   "max_depth", "\t",
   "min_split", "\t",
-  "minbucket", "\t"
+  "minbucket", "\t",
   "ganancia_promedio", "\n"
 )
 
 # itero por los loops anidados para cada hiperparametro
 
-for (vmax_depth in c(12, 10, 9, 8)) {
+for (vmax_depth in c(12, 10, 9, 8, 7)) {
   for (vmin_split in c(1000, 800, 600, 400, 200)) {
-    for (vcp in c(-0.4, -0.2, -0.5, -0.1 )) {
-        for (vmin_bucket in c(250, 200, 100,50, 15, 5)) {
+    for (vcp in c(-0.4, -0.2, -0.3, -0.1 )) {
+        for (vmin_bucket in c(250, 200, 100, 15, 5)) {
 
     # vminsplit  minima cantidad de registros en un nodo para hacer el split
     param_basicos <- list(
@@ -142,10 +142,10 @@ for (vmax_depth in c(12, 10, 9, 8)) {
       file = archivo_salida,
       append = TRUE,
       sep = "",
-      cp, "\t",
+      vcp, "\t",
       vmax_depth, "\t",
       vmin_split, "\t",
-      minbucket, "\t", 
+      vmin_bucket, "\t", 
       ganancia_promedio, "\n"
     )
      }

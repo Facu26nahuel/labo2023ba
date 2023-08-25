@@ -124,7 +124,7 @@ cat(
 for (vmax_depth in c(12, 10, 9, 8, 7)) {
   for (vmin_split in c(1000, 800, 600, 400, 200)) {
     for (vcp in c(-0.4, -0.2, -0.3, -0.1 )) {
-        for (vmin_bucket in c(250, 200, 100, 15, 5)) {
+      for (vmin_bucket in c(250, 200, 100, 15, 5)) {
 
     # vminsplit  minima cantidad de registros en un nodo para hacer el split
     param_basicos <- list(
@@ -135,7 +135,7 @@ for (vmax_depth in c(12, 10, 9, 8, 7)) {
     ) # profundidad máxima del arbol
 
 # Un solo llamado, con la semilla 17
-    ganancia_promedio <- ArbolesMontecarlo(17, param_basicos)
+    ganancia_promedio <- ArbolesMontecarlo(PARAM$semillas , param_basicos)
 
     # escribo los resultados al archivo de salida
     cat(

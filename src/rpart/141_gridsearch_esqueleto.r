@@ -103,7 +103,7 @@ dataset <- dataset[clase_ternaria != ""]
 # HT  representa  Hiperparameter Tuning
 dir.create("./exp/", showWarnings = FALSE)
 dir.create("./exp/HT2020/", showWarnings = FALSE)
-archivo_salida <- "./exp/HT2020/gridsearch003.txt"
+archivo_salida <- "./exp/HT2020/gridsearch001.txt"
 
 # Escribo los titulos al archivo donde van a quedar los resultados
 # atencion que si ya existe el archivo, esta instruccion LO SOBREESCRIBE,
@@ -120,10 +120,10 @@ cat(
 
 # itero por los loops anidados para cada hiperparametro
 
-for (vmax_depth in c(3, 4, 5, 6, 8, 9)) {
+for (vmax_depth in c(4, 6, 8, 9, 10)) {
   for (vmin_split in c(1000, 800, 600, 400, 200, 100, 50, 20, 10)) {
-    for (vcp in c(-0.10, -0.01, 0.10, 0.5 )) {
-        for (vmin_bucket in c(vmin_split/4, 5, 7, vmin_split/10)) {
+    for (vcp in c(-0.6, -0.4, -0.2, 0.1, 0.2 )) {
+        for (vmin_bucket in c(vmin_split/4, 10, 7, vmin_split/10)) {
 
     # vminsplit  minima cantidad de registros en un nodo para hacer el split
     param_basicos <- list(

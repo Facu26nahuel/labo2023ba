@@ -7,7 +7,7 @@ require("parallel")
 
 PARAM <- list()
 # reemplazar por las propias semillas
-PARAM$semillas <- c(711195, 997129, 681156, 717727, 402358)
+PARAM$semillas <- c(711195, 997129, 681156, 717727, 402358,315613, 358031, 357293, 488303, 528881, 529957, 626489, 624683, 709279, 710341, 831881, 880883, 905111, 915197, 999883  )
 
 #------------------------------------------------------------------------------
 # particionar agrega una columna llamada fold a un dataset que consiste
@@ -122,5 +122,3 @@ tb_salida[, mean(ganancia_test)]
 
 # calculo todos los promedios
 tb_salida[, lapply(.SD, mean)]
-
-# desvio estandar Distribucion Binomial   sqrt( n * p * (1-p) )

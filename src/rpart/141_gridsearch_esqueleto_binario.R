@@ -78,7 +78,7 @@ ArbolesMontecarlo <- function(semillas, param_basicos) {
                         semillas, # paso el vector de semillas
                         MoreArgs = list(param_basicos), # aqui paso el segundo parametro
                         SIMPLIFY = FALSE,
-                        mc.cores = 1
+                        mc.cores = 2
   ) # se puede subir a 5 si posee Linux o Mac OS
   
   ganancia_promedio <- mean(unlist(ganancias))
@@ -99,7 +99,7 @@ dataset <- fread("./datasets/dataset_pequeno.csv")
 dataset <- dataset[clase_ternaria != ""]
 dataset$clase_binaria <- ifelse(dataset$clase_ternaria %in% c("BAJA+1", "CONTINUA"), "negativo", "positivo")
 ##dataset$clase_binaria <- ifelse(dataset$clase_ternaria == "BAJA+2", "positivo","negativo")
-dataset$clase_ternaria <- null
+dataset$clase_ternaria <- NULL
 
 # genero el archivo para Kaggle
 # creo la carpeta donde va el experimento
@@ -115,37 +115,44 @@ archivo_salida <- "./exp/HT2020/gridsearch.txt"
 cat(
   file = archivo_salida,
   sep = "",
+  "cp","\t",
   "max_depth", "\t",
   "min_split", "\t",
+  "minbucket", "\t",
   "ganancia_promedio", "\n"
 )
 
 
 # itero por los loops anidados para cada hiperparametro
 
-for (vmax_depth in c(4, 6, 8, 10, 12, 14)) {
-  for (vmin_split in c(1000, 800, 600, 400, 200, 100, 50, 20, 10)) {
-    # notar como se agrega
+for (vmax_depth in c(15, 16, 17, 18, 19, 20)) {
+  for (vmin_split in c(1396, 1828, 3753, 1284, 1474)) {
+    for (vcp in c(-0.3, -0.6, -0.4, -0.5)) {
+      for (vmin_bucket in c(145, 691, 1679, 566, 1474)) {
     
     # vminsplit  minima cantidad de registros en un nodo para hacer el split
     param_basicos <- list(
-      "cp" = -0.5, # complejidad minima
+      "cp" = vcp, # complejidad minima
       "minsplit" = vmin_split,
-      "minbucket" = 5, # minima cantidad de registros en una hoja
+      "minbucket" = vmin_bucket, # minima cantidad de registros en una hoja
       "maxdepth" = vmax_depth
     ) # profundidad máxima del arbol
     
     # Un solo llamado, con la semilla 17
-    ganancia_promedio <- ArbolesMontecarlo(ksemillas, param_basicos)
+    ganancia_promedio <- ArbolesMontecarlo(17, param_basicos)
     
     # escribo los resultados al archivo de salida
     cat(
       file = archivo_salida,
       append = TRUE,
       sep = "",
+      vcp, "\t",
       vmax_depth, "\t",
       vmin_split, "\t",
+      vmin_bucket, "\t", 
       ganancia_promedio, "\n"
     )
+     }
+    }
   }
 }

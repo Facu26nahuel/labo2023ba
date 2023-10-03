@@ -32,7 +32,7 @@ PARAM$train$training <- c(
 )
 
 PARAM$train$validation <- c(202104)
-PARAM$train$testing <- c(202105, 202106)#incluir 202106?
+PARAM$train$testing <- c(202105)#incluir 202106?
 
 # Atencion  0.1  de  undersampling de la clase mayoritaria,  los CONTINUA
 # 1.0 significa NO undersampling ,  0.1  es quedarse con el 10% de los CONTINUA
